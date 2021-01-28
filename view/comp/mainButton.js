@@ -1,18 +1,22 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 
-const MainButton = ({text, checkId, color = 'lightskyblue'}) => {
-  return (
-    <View style={css.buttonContainer}>
-      <TouchableHighlight
-        style={[css.button, {backgroundColor: color}]}
-        onPress={checkId}>
-        <Text style={css.loginButton}>
-          {text}
-        </Text>
-      </TouchableHighlight>
-    </View>
-  )
+class MainButton extends Component {
+  render() {
+    const {text, checkId, color = 'lightskyblue', ...props} = this.props ;
+    return (
+      <View style={css.buttonContainer}>
+        <TouchableHighlight
+          {...props}
+          style={[css.button, { backgroundColor: color }]}
+          onPress={checkId}>
+          <Text style={css.loginButton}>
+            {text}
+          </Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
 }
 
 const css = StyleSheet.create({

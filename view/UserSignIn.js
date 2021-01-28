@@ -80,6 +80,7 @@ class UserSingIn extends Component{
               basicText={"사용자 비밀번호"}
               value = {this.state.userPassword}
               onChangeText={(text) => this.inputChangePassWord(text)}
+              secureTextEntry={true}
             />
           </View>
           <MainButton

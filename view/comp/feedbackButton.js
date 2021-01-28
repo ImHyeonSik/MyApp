@@ -1,19 +1,25 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { View, Text, TouchableHighlight, Image, StyleSheet, Linking } from "react-native";
 
-const FeedbackButton = ({ text, url, image }) => (
-  <View style={css.feedContainer}>
-    <TouchableHighlight
-      style={css.feedButton}>
-      <View style={css.feedSubContainer}>
-        <Image style={css.feedImage} source={image} />
-        <Text style={css.feedText}
-              onPress={() =>Linking.openURL(url)}>{text}</Text>
+class FeedbackButton extends Component{
+  render() {
+    const { text, url, image, ...props } = this.props;
+    return(
+      <View style={css.feedContainer}>
+        <TouchableHighlight
+          {...props}
+          style={css.feedButton}>
+          <View style={css.feedSubContainer}>
+            <Image style={css.feedImage} source={image} />
+            <Text style={css.feedText}
+                  {...props}
+                  onPress={() => Linking.openURL(url)}>{text}</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-    </TouchableHighlight>
-  </View>
-)
-
+      )
+  }
+}
 const css = StyleSheet.create({
   feedContainer: {
     alignItems: 'flex-start',

@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, TouchableHighlight, Text ,StyleSheet, Button} from 'react-native'
 
-const HelpButton = ({text1, text2, nextpage}) => (
-  <View style={css.helpContainer}>
-    <TouchableHighlight
-      style={css.helpButton}
-      onPress={nextpage}>
-      <Text style={css.text1Style}>
-        {text1}
-        <Text style={css.text2Style}>{text2}</Text>
-      </Text>
-    </TouchableHighlight>
-  </View>
-)
+class HelpButton extends Component{
+  render() {
+    const {text1, text2, nextpage, ...props} = this.props;
+    return(
+      <View style={css.helpContainer}>
+        <TouchableHighlight
+          {...props}
+          style={css.helpButton}
+          onPress={nextpage}>
+          <Text style={css.text1Style}>
+            {text1}
+            <Text style={css.text2Style}>{text2}</Text>
+          </Text>
+        </TouchableHighlight>
+      </View>
+      )
+  }
+}
 const css = StyleSheet.create({
   helpContainer: {
     alignItems: 'center'

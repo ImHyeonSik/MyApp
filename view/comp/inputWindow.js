@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import {View,TextInput,StyleSheet } from 'react-native'
 
-class InputWindow extends Component{
+class InputWindow extends Component {
   render() {
+    const {basicText, value, onChangeText, ...props} = this.props;
    return(
     <View style={[styles.inputContainer]}>
       <TextInput
+        {...props}
         style={styles.input}
-        placeholder={this.props.basicText}
+        placeholder={basicText}
         placeholderTextColor='#CACACA'
         selectionColor='#666666'
-        value={this.props.value}
-        onChangeText={this.props.onChangeText}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
    );

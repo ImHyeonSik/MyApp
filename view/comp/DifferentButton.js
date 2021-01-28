@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { View, Text, Image, TouchableHighlight, StyleSheet, Linking } from "react-native";
 
-const DifferentButton = ({text, image, url}) => (
-  <View style={css.differentContainer}>
-    <TouchableHighlight
-      style={css.differentButton}
-      onPress={() =>Linking.openURL(url)}>
-      <View style={css.differentSub}>
-        <Image style={css.differentImage} source={image} />
-        <Text style={css.differentText}>{text}</Text>
+class DifferentButton extends Component{
+  render() {
+    const {text, image, url, ...props} = this.props;
+    return(
+      <View style={css.differentContainer}>
+        <TouchableHighlight
+          {...props}
+          style={css.differentButton}
+          onPress={() => Linking.openURL(url)}>
+          <View style={css.differentSub}>
+            <Image style={css.differentImage} source={image} />
+            <Text style={css.differentText}>{text}</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-    </TouchableHighlight>
-  </View>
-)
+      )
+  }
+}
 
 const css = StyleSheet.create({
   differentContainer: {
