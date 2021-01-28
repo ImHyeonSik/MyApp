@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, Image, Alert} from 'react-native'
+import { View, StyleSheet, Image, Alert } from 'react-native'
 import InputWindow from "./comp/inputWindow";
 import MainButton from "./comp/mainButton";
 import DifferentButton from "./comp/DifferentButton";
@@ -8,9 +8,14 @@ import FeedbackButton from "./comp/feedbackButton";
 import BackButton from "./comp/BackButton";
 
 class UserSingIn extends Component{
+  static navigationOptions = {
+    headerTitle: () => false,
+    headerBackground: () => ( <View/> ),
+  }
+
   constructor() {
     super();
-    this.state= {
+    this.state = {
       userId: '',
       userPassword: ''
     }
@@ -43,23 +48,22 @@ class UserSingIn extends Component{
   }
 
   render() {
-    console.log('signIn', this.userId);
     return(
-      <View>
-        <BackButton />
+      <View style={{flex: 1}}>
+        {/*<BackButton />*/}
         <View style={css.login2}>
           <Image style={css.loginMainImage} source={require('../src/common/img/account/profile.jpg')} />
           <View style={css.inputStyle}>
             <InputWindow
               basicText={"사용자 ID"}
-              value = {this.userId}
+              value = {this.state.userId}
               onChangeText={(text) => this.inputChangeID(text)}
             />
           </View>
           <View style={css.inputStyle}>
             <InputWindow
               basicText={"사용자 비밀번호"}
-              value = {this.userPassword}
+              value = {this.state.userPassword}
               onChangeText={(text) => this.inputChangePassWord(text)}
             />
           </View>
@@ -101,7 +105,7 @@ class UserSingIn extends Component{
 
 const css = StyleSheet.create({
   login2:{
-    marginTop: 80,
+    marginTop: 40,
     alignItems: 'center',
   },
   loginMainImage: {

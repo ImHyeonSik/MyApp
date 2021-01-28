@@ -7,7 +7,7 @@ import InputWindow from './comp/inputWindow'
 
 class Start extends Component {
   static navigationOptions = {
-
+      headerShown: false,
   }
 
   constructor() {
@@ -45,7 +45,7 @@ class Start extends Component {
         </Text>
         <InputWindow
           basicText={inputText}
-          value={this.inputTextId}  // state의 inputTextId를 InputWindow 컴포넌트에 props로 전달
+          value={this.state.inputTextId}  // state의 inputTextId를 InputWindow 컴포넌트에 props로 전달
           onChangeText={(text) => this.inputChange(text)}  //inputChange를 prop으로 InputWindow 컴포넌트에 전달
         />
         <MainButton

@@ -8,6 +8,13 @@ import InputWindow from "./comp/inputWindow";
 import MainButton from "./comp/mainButton";
 
 class Find extends Component{
+  static navigationOptions = {
+    headerTitle: () => ( <View/> ),
+    headerBackground: () => (
+      <View/>
+    )
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -96,7 +103,7 @@ const css = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#ffffff',
     justifyContent: "space-around",
-    marginTop: 150
+    marginTop: 40
   },
   lineView:{
     marginTop:30
