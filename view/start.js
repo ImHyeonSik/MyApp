@@ -22,20 +22,39 @@ class Start extends Component {
     this.setState({inputTextId})
   }
 
-  checkId = () => {
-    fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
-      .then(response => {
-        if (response.status === 200){
-          this.props.navigation.navigate('Login')
-        }
-        else{
-          Alert.alert(
-            "알림",
-            "업체를 찾을 수 없습니다.",
-            [{text:"확인"}],
-            { cancelable: false });
-        }
+  checkId = async () => {
+    const response = await fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
+    const result = await response.json();
+
+    if (response.status === 200){
+      this.props.navigation.navigate('Login',{
+        companySeq: result.compSeq
       })
+    }
+    else{
+      Alert.alert(
+        "알림",
+        "업체를 찾을 수 없습니다.",
+        [{text:"확인"}],
+        { cancelable: false });
+    }
+
+    // fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
+    //   .then( async response => {
+    //     const result = await response.json()
+    //     if (response.status === 200){
+    //       this.props.navigation.navigate('Login',{
+    //         companySeq: result.compSeq
+    //       })
+    //     }
+    //     else{
+    //       Alert.alert(
+    //         "알림",
+    //         "업체를 찾을 수 없습니다.",
+    //         [{text:"확인"}],
+    //         { cancelable: false });
+    //     }
+    //   })
   }
 
   render() {
@@ -96,4 +115,3 @@ const css = StyleSheet.create({
   }
 })
 export default Start;
-

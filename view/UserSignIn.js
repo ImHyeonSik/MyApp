@@ -5,6 +5,7 @@ import MainButton from "./comp/mainButton";
 import DifferentButton from "./comp/DifferentButton";
 import HelpButton from "./comp/helpButton";
 import FeedbackButton from "./comp/feedbackButton";
+import { stringify } from "uuid";
 
 class UserSingIn extends Component{
   static navigationOptions = {
@@ -36,10 +37,10 @@ class UserSingIn extends Component{
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        compSeq: 1 , // 고정 <= company/check
-        id: this.state.userId, // 사용자 입력 state
-        pw: this.state.userPassword, // 사용자 입력 state
-        sns: 'O' // 고정
+        compSeq: (this.props.navigation.getParam('companySeq')),
+        id: this.state.userId,
+        pw: this.state.userPassword,
+        sns: 'O'
       })
     })
       .then(response => {
@@ -65,7 +66,6 @@ class UserSingIn extends Component{
   render() {
     return(
       <View style={{flex: 1}}>
-        {/*<BackButton />*/}
         <View style={css.login2}>
           <Image style={css.loginMainImage} source={require('../src/common/img/account/profile.jpg')} />
           <View style={css.inputStyle}>
