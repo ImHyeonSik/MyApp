@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, StyleSheet, Text, Alert } from 'react-native'
+import {View, StyleSheet, Text, Alert} from 'react-native'
 import MainButton from './comp/mainButton'
 import HelpButton from "./comp/helpButton"
 import FeedbackButton from "./comp/feedbackButton"
@@ -12,9 +12,9 @@ class Start extends Component {
 
   constructor() {
     super()
-    this.state ={
+    this.state = {
       inputTextId: '',
-      color: 'black'
+      color: 'black',
     }
    }
 
@@ -23,16 +23,19 @@ class Start extends Component {
   }
 
   checkId = () => {
-    if (this.state.inputTextId === 'OSD'){
-      this.props.navigation.navigate('Login')
-    }
-    else
-      Alert.alert(
-        "알림",
-        "업체를 찾을 수 없습니다.",
-        [{text:"확인"}],
-        { cancelable: false }
-        );
+    fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
+      .then(response => {
+        if (response.status === 200){
+          this.props.navigation.navigate('Login')
+        }
+        else{
+          Alert.alert(
+            "알림",
+            "업체를 찾을 수 없습니다.",
+            [{text:"확인"}],
+            { cancelable: false });
+        }
+      })
   }
 
   render() {

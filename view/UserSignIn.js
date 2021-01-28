@@ -5,7 +5,6 @@ import MainButton from "./comp/mainButton";
 import DifferentButton from "./comp/DifferentButton";
 import HelpButton from "./comp/helpButton";
 import FeedbackButton from "./comp/feedbackButton";
-import BackButton from "./comp/BackButton";
 
 class UserSingIn extends Component{
   static navigationOptions = {
@@ -30,17 +29,33 @@ class UserSingIn extends Component{
   }
 
   checkId = () => {
-    if((this.state.userId === 'user01') && (this.state.userPassword === '1111')){
-      Alert.alert("pass User");
-    }
-    else{
-      Alert.alert(
-        "실패",
-        "아이디 혹은 비밀번호를 확인하세요.",
-        [{text:"확인"}],
-        { cancelable: false }
-      );
-    }
+    fetch('http://141.223.149.91:8381/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        compSeq: 1 , // 고정 <= company/check
+        id: this.state.userId, // 사용자 입력 state
+        pw: this.state.userPassword, // 사용자 입력 state
+        sns: 'O' // 고정
+      })
+    })
+      .then(response => {
+        console.log({ response });
+        if( response.status === 200 ){
+          Alert.alert("pass User");
+        }
+        else{
+          Alert.alert(
+            "실패",
+            "아이디 혹은 비밀번호를 확인하세요.",
+            [{text:"확인"}],
+            { cancelable: false }
+          );
+        }
+      });
   }
 
   nextPage = () => {
