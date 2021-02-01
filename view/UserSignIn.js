@@ -5,7 +5,6 @@ import MainButton from "./comp/mainButton";
 import DifferentButton from "./comp/DifferentButton";
 import HelpButton from "./comp/helpButton";
 import FeedbackButton from "./comp/feedbackButton";
-import { stringify } from "uuid";
 
 class UserSingIn extends Component{
   static navigationOptions = {
@@ -59,7 +58,7 @@ class UserSingIn extends Component{
       });
   }
 
-  nextPage = () => {
+  PassWordPage = () => {
     this.props.navigation.navigate('FindPass')
   }
 
@@ -104,7 +103,7 @@ class UserSingIn extends Component{
           </View>
           <HelpButton
             text1={"ID 나 비밀번호를 잊으셨나요?"}
-            nextpage={this.nextPage}
+            nextpage={this.PassWordPage}
           />
           <View style={css.feedView}>
             <FeedbackButton

@@ -13,12 +13,16 @@ import { createAppContainer } from 'react-navigation'
 import Start from "./view/start";
 import UserSingIn from './view/UserSignIn';
 import Find from "./view/Find";
+import Join from "./view/Join";
+import MakeId from "./view/MakeId";
 
 const AppNavigator = createStackNavigator(
   {
     Home: Start,
     Login: UserSingIn,
-    FindPass: Find
+    FindPass: Find,
+    JoinPage: Join,
+    MakePage:MakeId
   },
   {
     initialRouteName: 'Home',

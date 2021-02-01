@@ -22,6 +22,10 @@ class Start extends Component {
     this.setState({inputTextId})
   }
 
+  joinPage = () => {
+    this.props.navigation.navigate('JoinPage')
+  }
+
   checkId = async () => {
     const response = await fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
     const result = await response.json();
@@ -40,8 +44,8 @@ class Start extends Component {
     }
 
     // fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
-    //   .then( async response => {
-    //     const result = await response.json()
+    //   .then( response => {
+    //     const result = response.json()
     //     if (response.status === 200){
     //       this.props.navigation.navigate('Login',{
     //         companySeq: result.compSeq
@@ -67,7 +71,7 @@ class Start extends Component {
         </Text>
         <InputWindow
           basicText={inputText}
-          value={this.state.inputTextId}  // state의 inputTextId를 InputWindow 컴포넌트에 props로 전달
+          value={inputTextId}  // state의 inputTextId를 InputWindow 컴포넌트에 props로 전달
           onChangeText={(text) => this.inputChange(text)}  //inputChange를 prop으로 InputWindow 컴포넌트에 전달
         />
         <MainButton
@@ -78,6 +82,7 @@ class Start extends Component {
         <HelpButton
           text1={"계정이 없으신가요?"}
           text2={"회원가입"}
+          nextpage={this.joinPage}
         />
         <View style={css.feedButtons}>
           <FeedbackButton

@@ -5,10 +5,10 @@ class InputWindow extends Component {
   render() {
     const {basicText, value, onChangeText, ...props} = this.props;
    return(
-    <View style={[styles.inputContainer]}>
+    <View style={[css.inputContainer]}>
       <TextInput
         {...props}
-        style={styles.input}
+        style={css.input}
         placeholder={basicText}
         placeholderTextColor='#CACACA'
         selectionColor='#666666'
@@ -19,7 +19,7 @@ class InputWindow extends Component {
    );
   }
 }
-const styles = StyleSheet.create({
+const css = StyleSheet.create({
   inputContainer:{
     marginTop: 20,
     marginLeft: 30,
