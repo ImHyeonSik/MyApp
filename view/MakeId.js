@@ -79,11 +79,15 @@ class MakeId extends Component {
   }
 
   RecheckWord = () => {
-    if((this.state.idPassword === this.state.passwordCheck) || (this.state.idPassword ===  '')){
+    if((this.state.idPassword === this.state.passwordCheck) || (this.state.passwordCheck ===  '')){
       return 'dimgray'
     }
     else
       return 'red'
+  }
+
+  NextUserInfo = () => {
+    this.props.navigation.navigate('UserInfoPage')
   }
 
   render() {
@@ -135,7 +139,7 @@ class MakeId extends Component {
           <View>
             <MainButton
               text={"다음"}
-              checkId={this.userID}
+              checkId={this.NextUserInfo}
               color={(this.EqualPassword() && this.state.IdCheck)? 'blue' : 'grey' }
             />
             <DifferentButton

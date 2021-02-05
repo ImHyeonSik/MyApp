@@ -7,7 +7,6 @@
  */
 
 import React, {Component} from 'react';
-import {Text} from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation'
 import Start from "./view/start";
@@ -15,6 +14,9 @@ import UserSingIn from './view/UserSignIn';
 import Find from "./view/Find";
 import Join from "./view/Join";
 import MakeId from "./view/MakeId";
+import UserInfo from "./view/UserInfo";
+import Country from "./view/Country";
+import Camera from "./view/Camera";
 
 const AppNavigator = createStackNavigator(
   {
@@ -22,10 +24,13 @@ const AppNavigator = createStackNavigator(
     Login: UserSingIn,
     FindPass: Find,
     JoinPage: Join,
-    MakePage:MakeId
+    MakePage: MakeId,
+    UserInfoPage: UserInfo,
+    CountryPage: Country,
+    CameraPage: Camera
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'UserInfoPage',
   }
 );
 

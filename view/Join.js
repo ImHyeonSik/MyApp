@@ -20,21 +20,22 @@ class Join extends Component {
     this.setState({inputText})
   }
 
-  checkId = () => {
-    if(this.state.inputText === 'OSD'){
+  checkId = async () => {
+    const response = await fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputText}`)
+
+    if (response.status === 200) {
       this.props.navigation.navigate('MakePage')
-    }
-    else{
+    } else {
       Alert.alert(
         "알림",
         "업체를 찾을 수 없습니다.",
-        [{text:"확인"}],
+        [{ text: "확인" }],
         { cancelable: false });
     }
   }
 
   render(){
-    const {inputText} =this.state;
+    const {inputText} = this.state;
     return(
       <View style={{flex:1}}>
         <View style={css.joinContainer}>
