@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet, Alert, ScrollView, TextInput, TouchableHighlight } from "react-native";
-import InputWindow from "./comp/inputWindow";
-import MainButton from "./comp/mainButton";
-import DifferentButton from "./comp/DifferentButton";
+import InputWindow from "../comp/inputWindow";
+import MainButton from "../comp/mainButton";
+import DifferentButton from "../comp/DifferentButton";
 import Icon from "react-native-vector-icons/Ionicons";
 
 class MakeId extends Component {
@@ -144,12 +144,12 @@ class MakeId extends Component {
             />
             <DifferentButton
               text={"구글로 회원가입"}
-              image={require('../src/common/img/account/sns_google.png')}
+              image={require('../../src/common/img/account/sns_google.png')}
               url={'http://www.google.com'}
             />
             <DifferentButton
               text={"네이버로 회원가입"}
-              image={require('../src/common/img/account/sns_naver.png')}
+              image={require('../../src/common/img/account/sns_naver.png')}
               url={'http://www.naver.com'}
             />
           </View>

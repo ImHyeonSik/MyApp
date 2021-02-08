@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet, Alert } from "react-native";
-import InputWindow from "./comp/inputWindow";
-import MainButton from "./comp/mainButton";
+import InputWindow from "../comp/inputWindow";
+import MainButton from "../comp/mainButton";
 import Icon from "react-native-vector-icons/Ionicons";
 
 class Join extends Component {

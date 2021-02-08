@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, Alert, ScrollView, TextInput, TouchableHighlight, StatusBar } from "react-native";
-import InputWindow from "./comp/inputWindow";
-import MainButton from "./comp/mainButton";
+import { View, Text, StyleSheet, Alert, ScrollView, TextInput, TouchableHighlight, Image } from "react-native";
+import InputWindow from "../comp/inputWindow";
+import MainButton from "../comp/mainButton";
 import Icon from "react-native-vector-icons/Ionicons";
+import ImagePicker from "react-native-image-crop-picker";
 
 class UserInfo extends Component {
   static navigationOptions = {
@@ -18,6 +19,7 @@ class UserInfo extends Component {
       PhoneNumber: '',
       country: null,
       countryIndex: null,
+      image: null,
     }
   }
 
@@ -70,13 +72,61 @@ class UserInfo extends Component {
       "",
       [
         {text:"카메라", onPress: this.cameraFunc },
-        {text:"갤러리 이미지"}
+        {text:"갤러리 이미지", onPress: () => this.pickSingle(false) }
         ],
       { cancelable: false });
   }
 
   cameraFunc = () => {
     this.props.navigation.navigate('CameraPage')
+  }
+
+  pickSingle(cropit, circular = false, mediaType) {
+    ImagePicker.openPicker({
+      width: 500,
+      height: 500,
+      cropping: cropit,
+      cropperCircleOverlay: circular,
+      sortOrder: 'none',
+      compressImageMaxWidth: 1000,
+      compressImageMaxHeight: 1000,
+      compressImageQuality: 1,
+      compressVideoPreset: 'MediumQuality',
+      includeExif: true,
+      cropperStatusBarColor: 'white',
+      cropperToolbarColor: 'white',
+      cropperActiveWidgetColor: 'white',
+      cropperToolbarWidgetColor: '#3498DB',
+    })
+      .then((image) => {
+        console.log('received image', image);
+        this.setState({
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime,
+          },
+          images: null,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+        Alert.alert(e.message ? e.message : e);
+      });
+  }
+
+  renderAsset(image) {
+    return this.renderImage(image);
+  }
+
+  renderImage(image) {
+    return (
+      <Image
+        style={{ width: 100, height: 80, resizeMode: 'contain' }}
+        source={image}
+      />
+    );
   }
 
   render() {
@@ -113,7 +163,7 @@ class UserInfo extends Component {
                   country, countryIndex
               }
               )}>
-              <View style={css.buttonStyle}>
+              <View style={css.countrybtnStyle}>
                 <Text style={css.buttonText1}>국가</Text>
                 <Text style={css.buttonText1}>{country}</Text>
               </View>
@@ -127,7 +177,8 @@ class UserInfo extends Component {
             <Text style={[css.ConditionText, {color: this.PhoneText()}]}>숫자만 입력하세요.</Text>
             <TouchableHighlight onPress={this.profileFunc}>
               <View style={css.buttonStyle}>
-                <Text style={css.buttonText1}>프로필</Text>
+                <Text style={css.buttonText2}>프로필</Text>
+                {this.state.image ? this.renderAsset(this.state.image) : null}
               </View>
             </TouchableHighlight>
           </View>
@@ -145,11 +196,6 @@ class UserInfo extends Component {
     );
   }
 }
-
-const flags = (code = 'KR') => {
-  const codeUp = code.toUpperCase();
-  return `${String.fromCodePoint(codeUp.codePointAt(0) - 0x41 + 0x1F1E6)}${String.fromCodePoint(codeUp.codePointAt(1) - 0x41 + 0x1F1E6)}`
-};
 
 const css = StyleSheet.create({
   joinContainer:{
@@ -171,9 +217,20 @@ const css = StyleSheet.create({
   ConditionText:{
     paddingLeft: 60,
   },
-  buttonStyle:{
+  countrybtnStyle:{
     marginLeft: 55,
     height: 50,
+    width: 300,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
+    paddingRight: 20,
+    paddingLeft: 20,
+    borderRadius: 10
+  },
+  buttonStyle:{
+    marginLeft: 55,
+    height: 100,
     width: 300,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -186,5 +243,9 @@ const css = StyleSheet.create({
     color: '#CACACA',
     paddingTop: 15
   },
+  buttonText2:{
+    color: '#CACACA',
+    paddingTop: 40
+  }
 })
 export default UserInfo

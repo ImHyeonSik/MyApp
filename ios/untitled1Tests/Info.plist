@@ -22,5 +22,11 @@
 	<string>1</string>
 	<key>NSCameraUsageDescription</key>
     <string>Camera를 사용합니다</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Testing Photo</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Testing Camera</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Testing microphoto</string>
 </dict>
 </plist>
