@@ -4,12 +4,12 @@ import MainButton from './comp/mainButton'
 import HelpButton from "./comp/helpButton"
 import FeedbackButton from "./comp/feedbackButton"
 import InputWindow from './comp/inputWindow'
+import GetServer from "./server/GetServer";
 
 class Start extends Component {
   static navigationOptions = {
       headerShown: false,
   }
-
   constructor() {
     super()
     this.state = {
@@ -27,38 +27,29 @@ class Start extends Component {
   }
 
   checkId = async () => {
-    const response = await fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
-    const result = await response.json();
+    const { inputTextId } = this.state;
 
-    if (response.status === 200){
-      this.props.navigation.navigate('Login',{
-        companySeq: result.compSeq
-      })
+    try {
+      // {status, result: {compSeq: 1, compName = 'OSD'}}
+      // {status, compSeq: 1, compName = 'OSD'}
+      // const { status, result } = await GetServer("/company/check",{name:inputTextId});
+      const response = await GetServer("/company/check",{name:inputTextId});
+      if (response.status === 200){
+        const result = await response.json();   // 나중에 GetServer 안으로 모듈화
+        this.props.navigation.navigate('Login',{
+          companySeq: result.compSeq  // 사용하지 않아서 밑줄 뜸
+        })
+      }
+      else{
+        Alert.alert(
+          "알림",
+          "업체를 찾을 수 없습니다.",
+          [{text:"확인"}],
+          { cancelable: false });
+      }
+    } catch (e) {
+      console.log(e);
     }
-    else{
-      Alert.alert(
-        "알림",
-        "업체를 찾을 수 없습니다.",
-        [{text:"확인"}],
-        { cancelable: false });
-    }
-
-    // fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputTextId}`)
-    //   .then( response => {
-    //     const result = response.json()
-    //     if (response.status === 200){
-    //       this.props.navigation.navigate('Login',{
-    //         companySeq: result.compSeq
-    //       })
-    //     }
-    //     else{
-    //       Alert.alert(
-    //         "알림",
-    //         "업체를 찾을 수 없습니다.",
-    //         [{text:"확인"}],
-    //         { cancelable: false });
-    //     }
-    //   })
   }
 
   render() {
@@ -73,6 +64,7 @@ class Start extends Component {
           basicText={inputText}
           value={inputTextId}  // state의 inputTextId를 InputWindow 컴포넌트에 props로 전달
           onChangeText={(text) => this.inputChange(text)}  //inputChange를 prop으로 InputWindow 컴포넌트에 전달
+          onSubmitEditing={this.checkId}
         />
         <MainButton
           text={"로그인"}
@@ -82,7 +74,7 @@ class Start extends Component {
         <HelpButton
           text1={"계정이 없으신가요?"}
           text2={"회원가입"}
-          nextpage={this.joinPage}
+          nextPage={this.joinPage}
         />
         <View style={css.feedButtons}>
           <FeedbackButton

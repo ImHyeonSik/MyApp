@@ -23,11 +23,14 @@ class Join extends Component {
   }
 
   checkId = async () => {
-    const response = await fetch(`http://141.223.149.91:8381/company/check?name=${this.state.inputText}`)
+    const {inputText} = this.state;   // const {inputText : name } = this.state
+    const response = await GetServer("/company/check", {name:inputText});
+    // const response = await GetServer("/company/check", {name, pw: "1111"});
 
     if (response.status === 200) {
       this.props.navigation.navigate('MakePage')
-    } else {
+    }
+    else {
       Alert.alert(
         "알림",
         "업체를 찾을 수 없습니다.",

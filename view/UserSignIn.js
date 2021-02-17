@@ -5,6 +5,7 @@ import MainButton from "./comp/mainButton";
 import DifferentButton from "./comp/DifferentButton";
 import HelpButton from "./comp/helpButton";
 import FeedbackButton from "./comp/feedbackButton";
+import PostServer from "./server/PostServer";
 
 class UserSingIn extends Component{
   static navigationOptions = {
@@ -28,34 +29,26 @@ class UserSingIn extends Component{
     this.setState({userPassword})
   }
 
-  checkId = () => {
-    fetch('http://141.223.149.91:8381/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        compSeq: (this.props.navigation.getParam('companySeq')),
-        id: this.state.userId,
-        pw: this.state.userPassword,
-        sns: 'O'
-      })
-    })
-      .then(response => {
-        console.log({ response });
-        if( response.status === 200 ){
-          Alert.alert("pass User");
-        }
-        else{
-          Alert.alert(
-            "실패",
-            "아이디 혹은 비밀번호를 확인하세요.",
-            [{text:"확인"}],
-            { cancelable: false }
-          );
-        }
-      });
+  checkId = async () => {
+    const re = await PostServer("login",{
+      compSeq: (this.props.navigation.getParam('companySeq')),
+      id: this.state.userId,
+      pw: this.state.userPassword,
+      sns: 'O' }
+      )
+
+      if( re.status === 200 ){
+        this.props.navigation.navigate('TabPage')
+      }
+      else{
+        Alert.alert(
+          "실패",
+          "아이디 혹은 비밀번호를 확인하세요.",
+          [{text:"확인"}],
+          { cancelable: false }
+        );
+      }
+
   }
 
   PassWordPage = () => {
@@ -72,10 +65,12 @@ class UserSingIn extends Component{
               basicText={"사용자 ID"}
               value = {this.state.userId}
               onChangeText={(text) => this.inputChangeID(text)}
+              onSubmitEditing={() => this.pass && this.pass.focus()}
             />
           </View>
           <View style={css.inputStyle}>
             <InputWindow
+              ref={ref => this.pass = ref}
               basicText={"사용자 비밀번호"}
               value = {this.state.userPassword}
               onChangeText={(text) => this.inputChangePassWord(text)}
@@ -87,14 +82,14 @@ class UserSingIn extends Component{
             checkId={this.checkId}
             color={(this.state.userPassword && this.state.userId)? 'blue' : 'grey' }
           />
-         <View style={css.DbuttonStyle}>
+         <View style={css.dfButtonStyle}>
            <DifferentButton
              text={"구글로 로그인"}
              image={require('../src/common/img/account/sns_google.png')}
              url={'http://www.google.com'}
            />
          </View>
-          <View style={css.DbuttonStyle}>
+          <View style={css.dfButtonStyle}>
             <DifferentButton
               text={"네이버로 로그인"}
               image={require('../src/common/img/account/sns_naver.png')}
@@ -134,7 +129,7 @@ const css = StyleSheet.create({
     marginRight : 230,
     marginBottom: 400
   },
-  DbuttonStyle: {
+  dfButtonStyle: {
     marginTop: -23,
   },
   inputStyle: {
