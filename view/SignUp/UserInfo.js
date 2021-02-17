@@ -4,6 +4,7 @@ import InputWindow from "../comp/inputWindow";
 import MainButton from "../comp/mainButton";
 import Icon from "react-native-vector-icons/Ionicons";
 import ImagePicker from "react-native-image-crop-picker";
+import ProgressIcon from "../comp/ProgressIcon";
 
 class UserInfo extends Component {
   static navigationOptions = {
@@ -135,13 +136,10 @@ class UserInfo extends Component {
       <View style={{flex:1}}>
         <View style={css.joinContainer}>
           <Text style={css.mainText}>회원가입</Text>
-          <View style={css.iconContainer}>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-off-outline" />
-            <Icon name="radio-button-off-outline" />
-          </View>
+          <ProgressIcon
+            step={2}
+            maximum={4}
+          />
         </View>
         <ScrollView style={{flex:1}}>
           <Text style={{paddingLeft:40}}>별명은 필수 입력사합입니다. {"\n"}그 외의 부가 정보는 건너뛰고 나중에 입력할 수도 있습니다.</Text>
@@ -182,7 +180,7 @@ class UserInfo extends Component {
               </View>
             </TouchableHighlight>
           </View>
-          <View style={[{flexDirection:'row'},{justifyContent:'flex-end'}]}>
+          <View style={[{flexDirection:'row', justifyContent:'flex-end'}]}>
             <Text style={[{color:this.RecheckWord}]}>건너뛰기</Text>
             <Icon name="chevron-forward-outline" color={this.RecheckWord} />
           </View>

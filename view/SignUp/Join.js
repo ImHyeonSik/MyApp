@@ -2,21 +2,23 @@ import React, {Component} from 'react'
 import { View, Text, StyleSheet, Alert } from "react-native";
 import InputWindow from "../comp/inputWindow";
 import MainButton from "../comp/mainButton";
-import Icon from "react-native-vector-icons/Ionicons";
+import ProgressIcon from "../comp/ProgressIcon";
+import GetServer from "../server/GetServer";
 
 class Join extends Component {
   static navigationOptions = {
     headerTitle: () => false,
     headerBackground: () => ( <View/> ),
   }
+
   constructor() {
     super();
     this.state = {
-      inputText:'',
+      inputText: '',
     }
   }
 
-  inputChange = (inputText) => {
+  inputChange1 = (inputText) => {
     this.setState({inputText})
   }
 
@@ -40,20 +42,17 @@ class Join extends Component {
       <View style={{flex:1}}>
         <View style={css.joinContainer}>
           <Text style={css.mainText}>회원가입</Text>
-          <View style={css.iconContainer}>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-off-outline" />
-            <Icon name="radio-button-off-outline" />
-            <Icon name="radio-button-off-outline" />
-            <Icon name="radio-button-off-outline" />
-          </View>
+          <ProgressIcon
+            step={0}
+            maximum={4}
+          />
         </View>
         <View style={css.joinInputContainer}>
           <Text style={css.subText}>업체명을 입력해주세요.</Text>
           <InputWindow
             basicText={"업체명"}
             value={this.state.inputText}
-            onChangeText={(text) => this.inputChange(text)}
+            onChangeText={(text) => this.inputChange1(text)}
           />
           <MainButton
             text={"다음"}

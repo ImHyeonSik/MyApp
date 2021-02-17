@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert, ScrollView, TextInput, TouchableHighligh
 import InputWindow from "../comp/inputWindow";
 import MainButton from "../comp/mainButton";
 import DifferentButton from "../comp/DifferentButton";
-import Icon from "react-native-vector-icons/Ionicons";
+import ProgressIcon from "../comp/ProgressIcon";
 
 class MakeId extends Component {
   static navigationOptions = {
@@ -95,13 +95,10 @@ class MakeId extends Component {
       <View style={{flex:1}}>
         <View style={css.joinContainer}>
           <Text style={css.mainText}>회원가입</Text>
-          <View style={css.iconContainer}>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-off-outline" />
-            <Icon name="radio-button-off-outline" />
-            <Icon name="radio-button-off-outline" />
-          </View>
+          <ProgressIcon
+            step={1}
+            maximum={4}
+          />
         </View>
         <ScrollView style={{flex:1}}>
           <Text style={{paddingLeft:40}}>ID 와 비밀번호를 입력해 주세요.</Text>

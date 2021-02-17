@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text, TouchableHighlight, ScrollView, Alert } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import MainButton from "../comp/mainButton";
-import Icon from "react-native-vector-icons/Ionicons";
+import ProgressIcon from "../comp/ProgressIcon";
 
 class SignUpLast extends Component {
   constructor() {
@@ -21,7 +21,7 @@ class SignUpLast extends Component {
     this.setState({toggleCheckBox})
   }
 
-  completebtn = () => {
+  completeBtn = () => {
     Alert.alert(
       "알림",
       "회원가입이 되었습니다.",
@@ -36,13 +36,10 @@ class SignUpLast extends Component {
       <View style={{flex:1}}>
         <View style={css.joinContainer}>
           <Text style={css.mainText}>회원가입</Text>
-          <View style={css.iconContainer}>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-            <Icon name="radio-button-on-outline" color="skyblue"/>
-          </View>
+          <ProgressIcon
+            step={4}
+            maximum={4}
+          />
         </View>
         <ScrollView style={{flex:1}}>
           <Text style={{paddingLeft:40}}>마지막 단계입니다. {"\n"}이용약관 및 개인정보보호정책을 동의해주세요.</Text>
@@ -59,7 +56,7 @@ class SignUpLast extends Component {
           </View>
           <MainButton
             text={"완료"}
-            checkId={this.completebtn}
+            checkId={this.completeBtn}
             color={this.state.toggleCheckBox ? 'blue' : 'gray'}
           />
         </ScrollView>
