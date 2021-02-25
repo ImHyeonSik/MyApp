@@ -4,7 +4,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 class Country extends Component {
   static navigationOptions = {
-    headerTitle: () => false
+    headerTitle: () => false,
+    headerBackTitleVisible: false,
   }
 
   constructor() {

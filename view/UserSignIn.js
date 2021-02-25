@@ -48,7 +48,6 @@ class UserSingIn extends Component{
           { cancelable: false }
         );
       }
-
   }
 
   PassWordPage = () => {

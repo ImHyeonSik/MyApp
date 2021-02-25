@@ -8,6 +8,7 @@ class InputWindow extends Component {
     <View style={[css.inputContainer]}>
       <TextInput
         {...props}
+        ref={ref => this.input = ref }
         style={css.input}
         placeholder={basicText}
         placeholderTextColor='#CACACA'
@@ -18,6 +19,8 @@ class InputWindow extends Component {
     </View>
    );
   }
+
+  focus = () => this.input && this.input.focus()
 }
 const css = StyleSheet.create({
   inputContainer:{

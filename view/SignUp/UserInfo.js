@@ -60,11 +60,7 @@ class UserInfo extends Component {
   }
 
   RecheckWord = () => {
-    if(this.state.passwordCheck ===  ''){
-      return '#808080'
-    }
-    else
-      return '#FF0000'
+    this.props.navigation.navigate('SignUpLastPage')
   }
 
   profileFunc = () => {
@@ -161,7 +157,7 @@ class UserInfo extends Component {
                   country, countryIndex
               }
               )}>
-              <View style={css.countrybtnStyle}>
+              <View style={css.countryBtnStyle}>
                 <Text style={css.buttonText1}>국가</Text>
                 <Text style={css.buttonText1}>{country}</Text>
               </View>
@@ -215,7 +211,7 @@ const css = StyleSheet.create({
   ConditionText:{
     paddingLeft: 60,
   },
-  countrybtnStyle:{
+  countryBtnStyle:{
     marginLeft: 55,
     height: 50,
     width: 300,

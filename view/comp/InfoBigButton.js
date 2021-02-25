@@ -7,7 +7,7 @@ class InfoBigButton extends Component {
     const { nextPage } = this.props ;
     return (
       <View style={{flex: 1}}>
-        <TouchableHighlight style={css.BigbtnStyle}
+        <TouchableHighlight style={css.BigBtnStyle}
                             onPress={nextPage}>
           <View></View>
         </TouchableHighlight>
@@ -17,7 +17,7 @@ class InfoBigButton extends Component {
 
 }
 const css = StyleSheet.create({
-  BigbtnStyle:{
+  BigBtnStyle:{
     height: 100,
     borderRadius: 15,
     margin: (5,5,5,5),

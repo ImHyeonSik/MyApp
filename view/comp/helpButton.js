@@ -3,13 +3,13 @@ import {View, TouchableHighlight, Text ,StyleSheet} from 'react-native'
 
 class HelpButton extends Component{
   render() {
-    const {text1, text2, nextpage, ...props} = this.props;
+    const {text1, text2, nextPage, ...props} = this.props;
     return(
       <View style={css.helpContainer}>
         <TouchableHighlight
           {...props}
           style={css.helpButton}
-          onPress={nextpage}>
+          onPress={nextPage}>
           <Text style={css.text1Style}>
             {text1}
             <Text style={css.text2Style}>{text2}</Text>

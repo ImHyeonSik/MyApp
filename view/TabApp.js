@@ -3,20 +3,24 @@ import { Image } from "react-native";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "./HomeScreen";
-import SettingScreen from "./SettingScreen";
+import SettingScreen from "./setting/SettingScreen";
 import Food from "./food";
+import Country from "./SignUp/Country";
+import UserProfile from "./setting/UserProfile";
 
 
 const HomeTabNavigator = createStackNavigator(
   {
     TabStackHome : HomeScreen,
-    FoodPage: Food
+    FoodPage: Food,
   }
 );
 
 const SettingTabNavigator = createStackNavigator(
   {
     TabStackSetting : SettingScreen,
+    TabProfilePage: UserProfile,
+    TabCountryPage: Country,
   }
 );
 
