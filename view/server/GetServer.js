@@ -6,7 +6,8 @@ const GetServer = async (site, info) => {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1MCIsImV4cCI6MTYxNjU3MjUwMn0.HAobC97RIj7fGQeZKVvRGz7DKyQ4gJOSMabxjDAIHnfkM4AEYkX0YSjbcm3JOtSbIvgRac2yfEaLCGUx8van2w',
       }
     }).then( r => { // json 을 여기에 병학하기
       resolve(r)

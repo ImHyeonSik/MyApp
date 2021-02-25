@@ -10,8 +10,10 @@ class ProgressBarContainer extends Component {
         <View style={{flex:1, width:'90%', marginLeft: 20, marginTop: 10}}>
           <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
             <Image style={css.btnImage} source={image}/>
-            <Text style={[css.nowTextStyle,{color: containerColor}]}>{nowText}</Text>
-            <Text style={[css.nowSmallTextStyle,{color: containerColor}]}>{nowSmallText}</Text>
+            <View style={{flexDirection:'row', alignItems: 'baseline'}}>
+              <Text style={[css.nowTextStyle,{color: containerColor}]}>{nowText}</Text>
+              <Text style={[css.nowSmallTextStyle,{color: containerColor}]}>{nowSmallText}</Text>
+            </View>
           </View>
           <View style={{flex:1, marginTop: 15 }}>
             <ProgressBar progress={0.5} color={containerColor} visible={true}/>
@@ -40,7 +42,7 @@ const css = StyleSheet.create({
   },
   nowSmallTextStyle:{
     fontSize: 15,
-    marginTop: 15,
+    // marginTop: 15,
     marginLeft: 8
   },
   maximumText:{

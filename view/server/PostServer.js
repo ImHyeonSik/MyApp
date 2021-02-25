@@ -7,7 +7,7 @@ const PostServer = async (site, info) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': '',
+        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1MCIsImV4cCI6MTYxNjU3MjUwMn0.HAobC97RIj7fGQeZKVvRGz7DKyQ4gJOSMabxjDAIHnfkM4AEYkX0YSjbcm3JOtSbIvgRac2yfEaLCGUx8van2w',
       },
       body: JSON.stringify(
         info
