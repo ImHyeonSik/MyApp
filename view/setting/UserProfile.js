@@ -38,17 +38,29 @@ class UserProfile extends Component {
   }
 
   componentDidMount = async () => {
-    const re = await GetServer("member/dashboard")
+    const re = await GetServer("member/profile")
     const result = await re.json();
     this.setState({
-      height:result.profile.height,
-      weight:result.profile.weight,
-      email:result.profile.email,
-      birth:result.profile.birth,
-      name:result.profile.name,
-      phone:result.profile.phone,
-      id:result.profile.id
+      height:result.height,
+      weight:result.weight,
+      email:result.email,
+      birth:result.birth,
+      name:result.name,
+      phone:result.phone,
+      id:result.id
     })
+  }
+
+  setNameChange = (name) => {
+    this.setState({name})
+  }
+
+  setEmailChange = (email) => {
+    this.setState({email})
+  }
+
+  setPhoneChange = (phone) => {
+    this.setState({phone})
   }
 
   genderCheck = (genderMaleBool) => {
@@ -112,7 +124,8 @@ class UserProfile extends Component {
 
         <View>
           <ProfileTextContainer
-            text1={name}
+            value={name}
+            onChangeText={(text) => this.setNameChange(text)}
           />
 
           <TouchableHighlight onPress={() => this.props.navigation.navigate('TabCountryPage',
@@ -131,10 +144,12 @@ class UserProfile extends Component {
           </TouchableHighlight>
 
           <ProfileTextContainer
-            text1={email}
+            value={email}
+            onChangeText={(text) => this.setEmailChange(text)}
           />
           <ProfileTextContainer
-            text1={phone}
+            value={phone}
+            onChangeText={(text) => this.setPhoneChange(text)}
           />
 
           <View style={css.genderContainer}>

@@ -16,7 +16,7 @@ class ProgressBarContainer extends Component {
             </View>
           </View>
           <View style={{flex:1, marginTop: 15 }}>
-            <ProgressBar progress={0.5} color={containerColor} visible={true}/>
+            <ProgressBar progress={nowText/maximumText} color={containerColor} indaterminate={false}/>
           </View>
           <View style={{flexDirection:'column', alignItems:'flex-end', marginTop:-20}}>
             <Text style={{color:'#808080'}}>{maximumText}</Text>

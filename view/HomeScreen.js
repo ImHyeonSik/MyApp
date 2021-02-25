@@ -50,7 +50,10 @@ class HomeScreen extends Component {
       smm: '',
       weight: '',
       missionFinish: '',
-      missionCount: ''
+      missionCount: '',
+      genBfp: '',
+      genBmi: '',
+      genSmm: ''
     }
   }
   componentDidMount = async () => {
@@ -62,28 +65,21 @@ class HomeScreen extends Component {
       companyName:result.company.compName,
       compAddress:result.company.address,
       compEmail:result.company.email,
-    })
-    this.setState({
       bpm:result.bpm.bpm,
       oxygen:result.bpm.oxygen,
-    })
-    this.setState({
       totalSteps:result.activity.totalSteps,
       goalSteps:result.activity.goalSteps,
-    })
-    this.setState({
       goalCal:result.meal.goalCal,
       // totalCal:result.meal.totalCal,
-    })
-    this.setState({
       bfp:result.body.bfp,
       bmi:result.body.bmi,
       smm:result.body.smm,
       weight:result.body.weight,
-    })
-    this.setState({
       missionFinish:result.mission.missionFinished,
       missionCount:result.mission.missionCount,
+      genBfp:result.body.genBfp,
+      genBmi:result.body.genBmi,
+      genSmm:result.body.genSmm
     })
   }
 
@@ -105,7 +101,8 @@ class HomeScreen extends Component {
 
   render() {
     const { companyName, compAddress, compTel, compEmail, bpm, oxygen,
-      totalSteps, goalSteps, goalCal, totalCal, bfp, bmi, smm, weight, missionFinish, missionCount } = this.state;
+      totalSteps, goalSteps, goalCal, totalCal, bfp, bmi, smm, weight, missionFinish, missionCount,
+      genBfp, genBmi, genSmm } = this.state;
     return (
       <ScrollView>
         <Modal
@@ -175,7 +172,7 @@ class HomeScreen extends Component {
           <ProgressBarContainer
             image={require('../src/common/img/card/food.png')}
             nowText={totalCal}
-            nowSmallText={(goalCal-totalCal)+" 남음"}
+            nowSmallText={`${(goalCal-totalCal)} 남음`}
             containerColor={"#9ACD32"}
             maximumText={goalCal}
           />
@@ -192,20 +189,22 @@ class HomeScreen extends Component {
             <View style={{flex: 1, marginLeft: 20, flexDirection:'row', alignItems: 'center'}}>
               <Image style={{width: 50, height: 50}} source={require('../src/common/img/card/bodyfat.png')}/>
               <BodyFatContainer
-                // infoText={bfp+"%"}
                 infoText={`${bfp}%`}
                 iconSize={8}
                 titleText={"BFP"}
+                genData={genBfp}
               />
               <BodyFatContainer
                 infoText={bmi}
                 iconSize={8}
                 titleText={"BMI"}
+                genData={genBmi}
               />
               <BodyFatContainer
-                infoText={smm+"kg"}
+                infoText={`${smm}kg`}
                 iconSize={8}
                 titleText={"SMM"}
+                genData={genSmm}
               />
             </View>
           </TouchableHighlight>
@@ -229,7 +228,7 @@ class HomeScreen extends Component {
           <InfoSmallButton
             text={"심박"}
             image={require('../src/common/img/card/bpm.png')}
-            dateText={bpm+" / "+oxygen}
+            dateText={`${bpm} / ${oxygen}`}
             textColor={'#ff6347'}/>
           <InfoSmallButton
             text={"스트레스"}
@@ -245,7 +244,7 @@ class HomeScreen extends Component {
             text={"체중"}
             image={require('../src/common/img/card/weight.png')}
             nextPage={this.setWeight}
-            dateText={weight+" kg"}
+            dateText={`${weight} kg`}
             textColor={'#1E90FF'}/>
           <InfoSmallButton
             text={"목표"}
@@ -254,7 +253,7 @@ class HomeScreen extends Component {
           <InfoSmallButton
             text={"미션"}
             image={require('../src/common/img/card/mission.png')}
-            dateText={missionCount+" / "+missionFinish}
+            dateText={`${missionCount} / ${missionFinish}`}
             textColor={'#20B2AA'}/>
         </View>
       </ScrollView>

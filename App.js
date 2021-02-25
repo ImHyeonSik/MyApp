@@ -12,11 +12,15 @@ import { createAppContainer } from 'react-navigation'
 import Start from "./view/start";
 import UserSingIn from './view/UserSignIn';
 import Find from "./view/Find";
-import Join from "./view/Join";
-import MakeId from "./view/MakeId";
-import UserInfo from "./view/UserInfo";
-import Country from "./view/Country";
-import Camera from "./view/Camera";
+import Join from "./view/SignUp/Join";
+import MakeId from "./view/SignUp/MakeId";
+import UserInfo from "./view/SignUp/UserInfo";
+import Country from "./view/SignUp/Country";
+import Camera from "./view/SignUp/Camera";
+import SignUpLast from "./view/SignUp/SignUpLast";
+import Tab from "./view/TabApp";
+import ProgressBarContainer from "./view/comp/ProgressBarContainer";
+import UserProfile from "./view/setting/UserProfile";
 
 const AppNavigator = createStackNavigator(
   {
@@ -27,10 +31,13 @@ const AppNavigator = createStackNavigator(
     MakePage: MakeId,
     UserInfoPage: UserInfo,
     CountryPage: Country,
-    CameraPage: Camera
+    CameraPage: Camera,
+    SignUpLastPage: SignUpLast,
+    TabPage: Tab,
+    Ppap: UserProfile
   },
   {
-    initialRouteName: 'UserInfoPage',
+    initialRouteName: 'TabPage',
   }
 );
 

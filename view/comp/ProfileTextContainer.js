@@ -3,11 +3,12 @@ import {View, Text, StyleSheet, TextInput} from "react-native";
 
 class ProfileTextContainer extends Component {
   render() {
-    const { text1, value, onChangeText } = this.props;
+    const { value, onChangeText } = this.props;
     return (
       <View style={css.classContainer}>
         <TextInput
-          placeholder={text1}
+          style={css.inData}
+          placeholder={value}
           value={value}
           onChangeText={onChangeText} />
       </View>
@@ -23,6 +24,10 @@ const css = StyleSheet.create({
     margin:15,
     backgroundColor:'#ffffff',
     height: 50
+  },
+  inData:{
+    fontSize:20,
+    margin:10
   }
 })
 export default ProfileTextContainer
