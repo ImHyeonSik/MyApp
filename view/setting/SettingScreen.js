@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, TouchableHighlight, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, TouchableHighlight, StyleSheet, Image, ScrollView, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import SettingMenu from "../comp/SettingMenu";
 import GetServer from "../server/GetServer";
+import { removeStorage } from "../storage/StorageSpace";
+import { NavigationActions, StackActions } from "react-navigation";
 
 class SettingScreen extends Component {
   static navigationOptions = {
     headerTitle: () => false,
-    headerLeft: (
+    headerLeft: () => (
       <View style={{marginLeft:20}}>
         <Text style={{fontSize:30}}>설정</Text>
-      </View>
-    )
+      </View>)
   }
 
   constructor() {
@@ -25,6 +26,25 @@ class SettingScreen extends Component {
     const r = await GetServer("member/dashboard")
     const result = await r.json();
     this.setState({name:result.profile.name})
+  }
+
+  logoutCheck = () => {
+    Alert.alert("로그아웃","로그아웃 하시겠습니까 ?",
+      [
+        {
+          text:"취소",
+          style:"cancel"
+        },
+        {
+          text:"확인",
+          onPress: () => this.tokenRemove()
+        }
+      ])
+  }
+
+  tokenRemove = async () => {
+    await removeStorage('server')
+    this.props.navigation.dispatch(StackActions.reset({index: 0, actions: [NavigationActions.navigate({routeName:'Home'})]}));
   }
 
   render() {
@@ -76,7 +96,7 @@ class SettingScreen extends Component {
             />
           </View>
 
-        <TouchableHighlight >
+        <TouchableHighlight onPress={() => this.logoutCheck()}>
           <View style={css.logoutContainer}>
             <Text style={{color:'red', fontSize:20}}>로그아웃</Text>
           </View>

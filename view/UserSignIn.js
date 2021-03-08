@@ -6,6 +6,8 @@ import DifferentButton from "./comp/DifferentButton";
 import HelpButton from "./comp/helpButton";
 import FeedbackButton from "./comp/feedbackButton";
 import PostServer from "./server/PostServer";
+import { NavigationActions, StackActions } from "react-navigation";
+import { setStorage } from "./storage/StorageSpace";
 
 class UserSingIn extends Component{
   static navigationOptions = {
@@ -36,9 +38,10 @@ class UserSingIn extends Component{
       pw: this.state.userPassword,
       sns: 'O' }
       )
-
       if( re.status === 200 ){
-        this.props.navigation.navigate('TabPage')
+        const result = await re.json();
+        await setStorage('server',result.token)
+        this.props.navigation.dispatch(StackActions.reset({index: 0, actions: [NavigationActions.navigate({routeName:'TabPage'})]}));
       }
       else{
         Alert.alert(
