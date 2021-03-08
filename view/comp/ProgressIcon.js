@@ -13,6 +13,7 @@ class ProgressIcon extends Component {
       <View style={css.iconContainer}>
         {arr.map(index => {
           return <Icon
+            id={index}
             name={index <= step ? "radio-button-on-outline" : "radio-button-off-outline"}
             color={index <= step ? "skyblue" : null}
           />

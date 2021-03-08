@@ -19,7 +19,7 @@ import Country from "./view/SignUp/Country";
 import Camera from "./view/SignUp/Camera";
 import SignUpLast from "./view/SignUp/SignUpLast";
 import Tab from "./view/TabApp";
-import ProgressBarContainer from "./view/comp/ProgressBarContainer";
+import OptionModal from "./view/comp/OptionModal";
 import UserProfile from "./view/setting/UserProfile";
 
 const AppNavigator = createStackNavigator(
@@ -33,12 +33,12 @@ const AppNavigator = createStackNavigator(
     CountryPage: Country,
     CameraPage: Camera,
     SignUpLastPage: SignUpLast,
-    TabPage: Tab,
-    Ppap: UserProfile
+    TabPage: { screen: Tab, navigationOptions: { headerShown: false }},
+    Ppap: OptionModal
   },
   {
     initialRouteName: 'TabPage',
-  }
+  },
 );
 
 const AppContainer = createAppContainer(AppNavigator);

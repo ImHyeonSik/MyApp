@@ -38,6 +38,10 @@ class UserProfile extends Component {
       formText: '사과형',
       exerciseText: '해당 없음',
       mealText: '해당 없음',
+      exerciseState: false,
+      mealState: false,
+      formState: false,
+
       optionFormList: [
         {
           id:0,
@@ -126,6 +130,18 @@ class UserProfile extends Component {
     })
   }
 
+  chExercise = () => {
+    this.setState({exerciseState:false})
+  }
+
+  chMeal = () => {
+    this.setState({mealState:false})
+  }
+
+  chForm = () => {
+    this.setState({formState:false})
+  }
+
   setFormText = (text) => {
     this.setState({formText:text})
   }
@@ -177,28 +193,6 @@ class UserProfile extends Component {
     )
   }
 
-  formUse = (bool, form, text) => {
-    let height;
-    let wight;
-    let margin
-
-    if (!bool) {
-      height = 0, wight = 0, margin = 0
-    }
-
-    return (
-      <OptionModal
-        titleText={"체형"}
-        date={text}
-        height={height}
-        wight={wight}
-        margin={margin}
-        list={form}
-        chText={this.setFormText}
-      />
-    )
-  }
-
   render() {
     const {country, countryIndex, height, weight, birth, name, email, phone, id,
        optionFormList, optionExercise, optionMeal, formText, exerciseText, mealText} = this.state;
@@ -247,7 +241,17 @@ class UserProfile extends Component {
               {this.genderCheck(this.state.genderMaleBool)}
           </View>
 
-          {this.formUse(this.state.genderFeMaleBool,optionFormList,formText)}
+          {this.state.genderFeMaleBool &&
+          <TouchableHighlight onPress={() => this.setState({formState:true})} underlayColor=''>
+            <View style={css.modalContainer}>
+              <View>
+                <Text style={{ fontSize: 20, margin: 15 }}>체형</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                <Text style={{ fontSize: 20, color: '#A9A9A9' }}>{formText}</Text>
+              </View>
+            </View>
+          </TouchableHighlight>}
 
           <ProfileAlertContainer
             titleText={"키"}
@@ -264,17 +268,52 @@ class UserProfile extends Component {
           <View style={{borderTopWidth:2, borderTopColor:'#A9A9A9'}}>
             <Text style={{margin:15, color:'#00BFFF'}}>
               옵션: 개인의 신체와 생활 패턴을 반영한 선택{'\n'}(개인 특성에 따라 상이할 수 있음)</Text>
+
+            <TouchableHighlight onPress={() => this.setState({exerciseState:true})} underlayColor=''>
+              <View style={css.modalContainer}>
+                <View>
+                  <Text style={{ fontSize: 20, margin: 15 }}>운동량</Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                  <Text style={{ fontSize: 20, color: '#A9A9A9' }}>{exerciseText}</Text>
+                </View>
+              </View>
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={() => this.setState({mealState:true})} underlayColor=''>
+              <View style={css.modalContainer}>
+                <View>
+                  <Text style={{ fontSize: 20, margin: 15 }}>식습관</Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                  <Text style={{ fontSize: 20, color: '#A9A9A9' }}>{mealText}</Text>
+                </View>
+              </View>
+            </TouchableHighlight>
+
+            <OptionModal
+              titleText={"체형"}
+              date={formText}
+              list={optionFormList}
+              chText={this.setFormText}
+              visible={this.state.formState}
+              chVisible={this.chForm}
+            />
             <OptionModal
               titleText={"운동량"}
               date={exerciseText}
               list={optionExercise}
               chText={this.setExerciseText}
+              visible={this.state.exerciseState}
+              chVisible={this.chExercise}
             />
             <OptionModal
               titleText={"식습관"}
               date={mealText}
               list={optionMeal}
               chText={this.setMealText}
+              visible={this.state.mealState}
+              chVisible={this.chMeal}
             />
           </View>
           <View style={{borderTopWidth:2, borderTopColor:'#A9A9A9'}}>
@@ -318,6 +357,15 @@ const css = StyleSheet.create({
     borderRadius:10,
     margin: 15,
     height: 130
+  },
+  modalContainer:{
+    flex:1,
+    flexDirection:'row',
+    alignItems:'center',
+    borderRadius:10,
+    backgroundColor:'#ffffff',
+    height: 50,
+    margin: 15,
   }
 })
 export default UserProfile
