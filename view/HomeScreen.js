@@ -19,12 +19,12 @@ import GetServer from "./server/GetServer";
 
 class HomeScreen extends Component {
   static navigationOptions = {
-     headerTitle: (
+     headerTitle: () => (
        <View style={{ flex:1 , alignItems: "center"}}>
         <Image style={{width: 100, height: 20,}} source={require('../src/common/img/logo.png')} />
        </View>
      ),
-    headerRight: (
+    headerRight: () => (
       <TouchableHighlight onPress={() => alert('hi')} underlayColor={""}>
         <Image style={{height: 20, width: 20,}} source={require('../src/common/img/bar/noti.png')}/>
       </TouchableHighlight>
@@ -53,13 +53,13 @@ class HomeScreen extends Component {
       missionCount: '',
       genBfp: '',
       genBmi: '',
-      genSmm: ''
+      genSmm: '',
+      fefefe: [],
     }
   }
   componentDidMount = async () => {
     const re = await GetServer("member/dashboard")
     const result = await re.json();
-    // console.log(result.company.tel)
     this.useEffect(result.company.tel)
     this.setState({
       companyName:result.company.compName,
@@ -79,7 +79,8 @@ class HomeScreen extends Component {
       missionCount:result.mission.missionCount,
       genBfp:result.body.genBfp,
       genBmi:result.body.genBmi,
-      genSmm:result.body.genSmm
+      genSmm:result.body.genSmm,
+      fefefe: result.company.listAds,
     })
   }
 
@@ -106,7 +107,7 @@ class HomeScreen extends Component {
     return (
       <ScrollView>
         <Modal
-          animationType="slide"
+          animationType="none"
           transparent={true}
           visible={this.state.modalVisible}>
           <TouchableHighlight style={{flex:1}} onPress={() => {this.setModalVisible({modalVisible: false})}} underlayColor={""}>
@@ -134,18 +135,15 @@ class HomeScreen extends Component {
                               autoplayDelay={2000} // 스크롤 최소 대기시간 2초
                               autoplayInterval={2000} //스크롤 시간 간격 2초
                               paginationStyle={{position: 'absolute',bottom: undefined, left: 0, top: -30, right: 0}}>
-                        <View testID="Hello" style={css.slide1}>
-                          <Text style={css.text}>Hello Swiper</Text>
-                        </View>
-                        <View testID="Beautiful" style={css.slide2}>
-                          <Text style={css.text}>Beautiful</Text>
-                        </View>
-                        <View testID="Simple" style={css.slide3}>
-                          <Text style={css.text}>And simple</Text>
-                        </View>
+                        {this.state.fefefe.map(item => {
+                          return(
+                            <View key={item.order} style={css.slide2}>
+                              <Image source={{uri:`http://141.223.149.91:8381${item.urlAds}`}} style={{height:'100%', width:'100%'}} />
+                            </View>
+                          )
+                        })}
                       </Swiper>
                     </View>
-
                 </View>
               </View>
               </TouchableHighlight>

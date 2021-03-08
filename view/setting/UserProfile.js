@@ -4,15 +4,16 @@ import Icon from "react-native-vector-icons/Ionicons";
 import GetServer from "../server/GetServer";
 import ProfileTextContainer from "../comp/ProfileTextContainer";
 import ProfileAlertContainer from "../comp/ProfileAlertContainer";
+import OptionModal from "../comp/OptionModal";
 
 class UserProfile extends Component {
   static navigationOptions = {
-    headerTitle: (
+    headerTitle: () => (
       <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
         <Text style={{fontSize:25}}>내 정보</Text>
       </View>
     ),
-    headerRight: (
+    headerRight: () => (
       <TouchableHighlight onPress={() => alert('hi')} underlayColor={""}>
         <Image style={{height: 20, width: 20,}} source={require('../../src/common/img/bar/confirm.png')}/>
       </TouchableHighlight>
@@ -33,7 +34,81 @@ class UserProfile extends Component {
       name:'',
       email:'',
       phone:'',
-      id:''
+      id:'',
+      formText: '사과형',
+      exerciseText: '해당 없음',
+      mealText: '해당 없음',
+      optionFormList: [
+        {
+          id:0,
+          image: require('../../src/common/img/body/body_apple.png'),
+          title: '사과형'
+        },
+        {
+          id:1,
+          image: require('../../src/common/img/body/body_banana.png'),
+          title: '바나나형'
+        },
+        {
+          id:2,
+          image: require('../../src/common/img/body/body_pear.png'),
+          title: '배형'
+        }
+        ],
+      optionExercise: [
+        {
+          id:0,
+          image: null,
+          title: '주 4회 4시간 이상 운동하고 있다.'
+        },
+        {
+          id:1,
+          image: null,
+          title: '주 3회 3시간 이상 운동하고 있다.'
+        },
+        {
+          id:2,
+          image: null,
+          title: '주 2회 2시간 이상 운동하고 있다.'
+        },
+        {
+          id:3,
+          image: null,
+          title: '주 1회 1시간 이상 운동하고 있다.'
+        },
+        {
+          id:4,
+          image: null,
+          title: '해당 없음'
+        }
+      ],
+      optionMeal: [
+        {
+          id:0,
+          image: null,
+          title: '식이관리 상'
+        },
+        {
+          id:1,
+          image: null,
+          title: '식이관리 중'
+        },
+        {
+          id:2,
+          image: null,
+          title: '식이관리 하'
+        },
+        {
+          id:3,
+          image: null,
+          title: '해당 없음'
+        },
+        {
+          id:4,
+          image: null,
+          title: '식사량이 많은 편이다'
+        },
+      ]
     }
   }
 
@@ -47,8 +122,20 @@ class UserProfile extends Component {
       birth:result.birth,
       name:result.name,
       phone:result.phone,
-      id:result.id
+      id:result.id,
     })
+  }
+
+  setFormText = (text) => {
+    this.setState({formText:text})
+  }
+
+  setExerciseText = exerciseText => {
+    this.setState({exerciseText})
+  }
+
+  setMealText = (text) => {
+    this.setState({mealText:text})
   }
 
   setNameChange = (name) => {
@@ -90,28 +177,31 @@ class UserProfile extends Component {
     )
   }
 
-  formUse = (bool) => {
+  formUse = (bool, form, text) => {
     let height;
     let wight;
     let margin
 
-    if(!bool){
-      height=0, wight=0, margin=0
+    if (!bool) {
+      height = 0, wight = 0, margin = 0
     }
 
     return (
-      <ProfileAlertContainer
+      <OptionModal
         titleText={"체형"}
-        date={"dfd"}
+        date={text}
         height={height}
         wight={wight}
         margin={margin}
+        list={form}
+        chText={this.setFormText}
       />
     )
   }
 
   render() {
-    const {country, countryIndex, height, weight, birth, name, email, phone, id} = this.state;
+    const {country, countryIndex, height, weight, birth, name, email, phone, id,
+       optionFormList, optionExercise, optionMeal, formText, exerciseText, mealText} = this.state;
 
     return (
       <ScrollView>
@@ -157,7 +247,7 @@ class UserProfile extends Component {
               {this.genderCheck(this.state.genderMaleBool)}
           </View>
 
-          {this.formUse(this.state.genderFeMaleBool)}
+          {this.formUse(this.state.genderFeMaleBool,optionFormList,formText)}
 
           <ProfileAlertContainer
             titleText={"키"}
@@ -174,13 +264,17 @@ class UserProfile extends Component {
           <View style={{borderTopWidth:2, borderTopColor:'#A9A9A9'}}>
             <Text style={{margin:15, color:'#00BFFF'}}>
               옵션: 개인의 신체와 생활 패턴을 반영한 선택{'\n'}(개인 특성에 따라 상이할 수 있음)</Text>
-            <ProfileAlertContainer
+            <OptionModal
               titleText={"운동량"}
-              date={"해당 없음"}
+              date={exerciseText}
+              list={optionExercise}
+              chText={this.setExerciseText}
             />
-            <ProfileAlertContainer
+            <OptionModal
               titleText={"식습관"}
-              date={"해당 없음"}
+              date={mealText}
+              list={optionMeal}
+              chText={this.setMealText}
             />
           </View>
           <View style={{borderTopWidth:2, borderTopColor:'#A9A9A9'}}>
