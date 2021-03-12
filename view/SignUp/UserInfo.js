@@ -5,6 +5,9 @@ import MainButton from "../comp/mainButton";
 import Icon from "react-native-vector-icons/Ionicons";
 import ImagePicker from "react-native-image-crop-picker";
 import ProgressIcon from "../comp/ProgressIcon";
+import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
+import * as action from '../../src/redux/action';
 
 class UserInfo extends Component {
   static navigationOptions = {
@@ -60,6 +63,7 @@ class UserInfo extends Component {
   }
 
   RecheckWord = () => {
+    this.props.handleSetInfo(this.state.NickName, this.state.email, this.state.country, this.state.PhoneNumber, this.state.image)
     this.props.navigation.navigate('SignUpLastPage')
   }
 
@@ -156,7 +160,7 @@ class UserInfo extends Component {
                 onSelectCountry: (country, countryIndex) => this.setState({country, countryIndex}),
                   country, countryIndex
               }
-              )}>
+              )} underlayColor=''>
               <View style={css.countryBtnStyle}>
                 <Text style={css.buttonText1}>국가</Text>
                 <Text style={css.buttonText1}>{country}</Text>
@@ -177,8 +181,8 @@ class UserInfo extends Component {
             </TouchableHighlight>
           </View>
           <View style={[{flexDirection:'row', justifyContent:'flex-end'}]}>
-            <Text style={[{color:this.RecheckWord}]}>건너뛰기</Text>
-            <Icon name="chevron-forward-outline" color={this.RecheckWord} />
+            <Text>건너뛰기</Text>
+            <Icon name="chevron-forward-outline" />
           </View>
           <MainButton
             text={"다음"}
@@ -190,6 +194,20 @@ class UserInfo extends Component {
     );
   }
 }
+
+const mapDispatchProps = (dispatch) => {
+  return {
+    handleSetInfo: (nick, email, country,phone, image ) => { dispatch(action.set_info(nick, email, country,phone, image))},
+  }
+}
+
+// const mapDispatchProps = (dispatch) => {
+//   return bindActionCreators({
+//     handleSetInfo: (nick, email, country,phone, image ) => action.set_info(nick, email, country,phone, image),
+//     handleSetInfo2: (nick, email, country,phone, image ) => action.set_info(nick, email, country,phone, image),
+//     handleSetInfo3: (nick, email, country,phone, image ) => action.set_info(nick, email, country,phone, image),
+//   }, dispatch)
+// } 여러개의 액션을 한번에 사용이 가능
 
 const css = StyleSheet.create({
   joinContainer:{
@@ -242,4 +260,4 @@ const css = StyleSheet.create({
     paddingTop: 40
   }
 })
-export default UserInfo
+export default connect(null,mapDispatchProps)(UserInfo)

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableHighlight, ScrollView, Alert } from "r
 import CheckBox from "@react-native-community/checkbox";
 import MainButton from "../comp/mainButton";
 import ProgressIcon from "../comp/ProgressIcon";
+import { connect } from "react-redux";
 
 class SignUpLast extends Component {
   constructor() {
@@ -24,7 +25,9 @@ class SignUpLast extends Component {
   completeBtn = () => {
     Alert.alert(
       "알림",
-      "회원가입이 되었습니다.",
+      `회사:${this.props.compName}, seq:${this.props.seq}, 
+      id: ${this.props.id}, password: ${this.props.pass}, email: ${this.props.email}, 
+      phone: ${this.props.phone}`,
       [{ text: "확인" }],
       { cancelable: false });
   }
@@ -51,19 +54,30 @@ class SignUpLast extends Component {
               boxType={"square"}
             />
             <Text style={{fontSize: 15, paddingLeft: 5}}>이용약관, 개인정보 처리방침에 동의합니다.{"\n"}
-            <Text style={{color: 'red'} }>이용약관 </Text>&<Text style={{color: 'red'}}> 개인정보보호정책</Text>
+            <Text style={{color: '#FF0000'} }>이용약관 </Text>&<Text style={{color: '#FF0000'}}> 개인정보보호정책</Text>
             </Text>
           </View>
           <MainButton
             text={"완료"}
             checkId={this.completeBtn}
-            color={this.state.toggleCheckBox ? 'blue' : 'gray'}
+            color={this.state.toggleCheckBox ? '#0000FF' : '#808080'}
           />
         </ScrollView>
       </View>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    compName: state.company.compName,
+    seq: state.company.comSeq,
+    id: state.user.userID,
+    pass: state.user.userPassword,
+    email: state.user.userEmail,
+    phone: state.user.userPhone,
+  }
+}
+
 const css = StyleSheet.create({
   joinContainer:{
     flex:0.2,
@@ -91,4 +105,4 @@ const css = StyleSheet.create({
     flexDirection: "row"
   }
 })
-export default SignUpLast
+export default connect(mapStateToProps,null)(SignUpLast)

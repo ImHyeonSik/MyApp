@@ -5,14 +5,18 @@ import MainButton from "../comp/mainButton";
 import ProgressIcon from "../comp/ProgressIcon";
 import GetServer from "../server/GetServer";
 
+import { connect } from "react-redux";
+
+import * as action from '../../src/redux/action';
+
 class Join extends Component {
   static navigationOptions = {
     headerTitle: () => false,
     headerBackground: () => ( <View/> ),
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       inputText: '',
     }
@@ -28,6 +32,8 @@ class Join extends Component {
     // const response = await GetServer("/company/check", {name, pw: "1111"});
 
     if (response.status === 200) {
+      const result = await response.json();
+      this.props.handleSetName(this.state.inputText,result.compSeq)
       this.props.navigation.navigate('MakePage')
     }
     else {
@@ -67,6 +73,13 @@ class Join extends Component {
     );
   }
 }
+
+const mapDispatchProps = (dispatch) => {
+  return {
+    handleSetName: (name, seq) => { dispatch(action.set_company(name, seq))},
+  }
+}
+
 const css = StyleSheet.create({
   joinContainer:{
     marginTop: 20,
@@ -92,4 +105,4 @@ const css = StyleSheet.create({
     justifyContent: 'space-around'
   },
 })
-export default Join
+export default connect(null, mapDispatchProps)(Join)

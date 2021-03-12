@@ -58,30 +58,34 @@ class HomeScreen extends Component {
     }
   }
   componentDidMount = async () => {
-    const re = await GetServer("member/dashboard")
-    const result = await re.json();
-    this.useEffect(result.company.tel)
-    this.setState({
-      companyName:result.company.compName,
-      compAddress:result.company.address,
-      compEmail:result.company.email,
-      bpm:result.bpm.bpm,
-      oxygen:result.bpm.oxygen,
-      totalSteps:result.activity.totalSteps,
-      goalSteps:result.activity.goalSteps,
-      goalCal:result.meal.goalCal,
-      // totalCal:result.meal.totalCal,
-      bfp:result.body.bfp,
-      bmi:result.body.bmi,
-      smm:result.body.smm,
-      weight:result.body.weight,
-      missionFinish:result.mission.missionFinished,
-      missionCount:result.mission.missionCount,
-      genBfp:result.body.genBfp,
-      genBmi:result.body.genBmi,
-      genSmm:result.body.genSmm,
-      fefefe: result.company.listAds,
-    })
+    try {
+      const re = await GetServer("member/dashboard")
+      const result = await re.json();
+      this.useEffect(result.company.tel)
+      this.setState({
+        companyName: result.company.compName,
+        compAddress: result.company.address,
+        compEmail: result.company.email,
+        bpm: result.bpm.bpm,
+        oxygen: result.bpm.oxygen,
+        totalSteps: result.activity.totalSteps,
+        goalSteps: result.activity.goalSteps,
+        goalCal: result.meal.goalCal,
+        // totalCal:result.meal.totalCal,
+        bfp: result.body.bfp,
+        bmi: result.body.bmi,
+        smm: result.body.smm,
+        weight: result.body.weight,
+        missionFinish: result.mission.missionFinished,
+        missionCount: result.mission.missionCount,
+        genBfp: result.body.genBfp,
+        genBmi: result.body.genBmi,
+        genSmm: result.body.genSmm,
+        fefefe: result.company.listAds,
+      })
+    } catch (e){
+      console.log(e)
+    }
   }
 
   useEffect = (value) => {

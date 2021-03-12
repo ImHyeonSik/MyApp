@@ -4,6 +4,11 @@ import InputWindow from "../comp/inputWindow";
 import MainButton from "../comp/mainButton";
 import DifferentButton from "../comp/DifferentButton";
 import ProgressIcon from "../comp/ProgressIcon";
+import GetServer from "../server/GetServer";
+
+import { connect } from "react-redux";
+
+import * as action from '../../src/redux/action';
 
 class MakeId extends Component {
   static navigationOptions = {
@@ -42,8 +47,9 @@ class MakeId extends Component {
     return regExp.test(asValue);
   }
 
-  DuplicateCheck = () => {
-    if(this.state.userID !== 'sik123' && this.isJobId(this.state.userID)){
+  DuplicateCheck = async () => {
+    const r = await GetServer("/member/check",{compSeq:this.props.seq, id:this.state.userID})
+    if((r.status === 200) && this.isJobId(this.state.userID)){
       Alert.alert(
         "알림",
         "사용 가능한 ID 입니다.",
@@ -72,21 +78,22 @@ class MakeId extends Component {
 
   checkWord = () => {
     if(this.isJobPassword(this.state.idPassword) || (this.state.idPassword ===  '')){
-      return 'dimgray'
+      return '#696969'
     }
     else
-      return 'red'
+      return '#FF0000'
   }
 
   RecheckWord = () => {
     if((this.state.idPassword === this.state.passwordCheck) || (this.state.passwordCheck ===  '')){
-      return 'dimgray'
+      return '#696969'
     }
     else
-      return 'red'
+      return '#FF0000'
   }
 
   NextUserInfo = () => {
+    this.props.handleSetUser(this.state.userID,this.state.idPassword)
     this.props.navigation.navigate('UserInfoPage')
   }
 
@@ -137,7 +144,7 @@ class MakeId extends Component {
             <MainButton
               text={"다음"}
               checkId={this.NextUserInfo}
-              color={(this.EqualPassword() && this.state.IdCheck)? 'blue' : 'grey' }
+              color={(this.EqualPassword() && this.state.IdCheck)? '#0000FF' : '#808080' }
             />
             <DifferentButton
               text={"구글로 회원가입"}
@@ -155,6 +162,19 @@ class MakeId extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    seq: state.company.comSeq,
+  }
+}
+
+const mapDispatchProps = (dispatch) => {
+  return {
+    handleSetUser: (id, password) => { dispatch(action.set_user(id, password))},
+  }
+}
+
 const css = StyleSheet.create({
   joinContainer:{
     flex:0.2,
@@ -189,7 +209,7 @@ const css = StyleSheet.create({
   DuplicateStyle:{
     height: 50,
     width: 100,
-    backgroundColor: 'lightskyblue',
+    backgroundColor: '#87CEFA',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10
@@ -203,4 +223,4 @@ const css = StyleSheet.create({
   }
 
 })
-export default MakeId
+export default connect(mapStateToProps,mapDispatchProps)(MakeId)

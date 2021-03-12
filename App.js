@@ -22,6 +22,11 @@ import Tab from "./view/TabApp";
 import OptionModal from "./view/comp/OptionModal";
 import UserProfile from "./view/setting/UserProfile";
 
+import { createStore } from "redux";
+import redux from "./src/redux/reducers/index"
+import { Provider } from "react-redux";
+const store = createStore(redux);
+
 const AppNavigator = createStackNavigator(
   {
     Home: Start,
@@ -37,7 +42,7 @@ const AppNavigator = createStackNavigator(
     Ppap: OptionModal
   },
   {
-    initialRouteName: 'TabPage',
+    initialRouteName: 'Home',
   },
 );
 
@@ -46,7 +51,9 @@ const AppContainer = createAppContainer(AppNavigator);
 class App extends Component {
   render() {
     return (
-      <AppContainer />
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     );
   }
 }
