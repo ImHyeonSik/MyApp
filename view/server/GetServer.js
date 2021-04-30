@@ -4,7 +4,7 @@ import { getStorage } from "../storage/StorageSpace";
 const GetServer = async (site, info) => {
   const value = await getStorage('server')
   return new Promise((resolve, reject) =>
-    fetch(`http://141.223.149.91:8381/${site}${encode(info)}`, {
+    fetch(`서버주소/${site}${encode(info)}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
